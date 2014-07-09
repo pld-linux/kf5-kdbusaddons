@@ -7,7 +7,7 @@
 %define		orgname		kdbusaddons
 
 Summary:	Convenience classes for DBus
-Name:		kde5-%{orgname}
+Name:		kf5-%{orgname}
 Version:	5.0.0
 Release:	0.1
 License:	LGPL v2.1+
@@ -22,10 +22,12 @@ BuildRequires:	Qt5Test-devel
 BuildRequires:	Qt5Widgets-devel >= 5.2.0
 BuildRequires:	Qt5X11Extras-devel >= 5.2.0
 BuildRequires:	cmake >= 2.8.12
-BuildRequires:	kde5-extra-cmake-modules >= 1.0.0
+BuildRequires:	kf5-extra-cmake-modules >= 1.0.0
 BuildRequires:	qt5-linguist
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		qt5dir		%{_libdir}/qt5
 
 %description
 KDBusAddons provides convenience classes on top of QtDBus, as well as
@@ -50,7 +52,17 @@ Pliki nagłówkowe dla programistów używających %{orgname}.
 install -d build
 cd build
 %cmake \
-	-DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt5/mkspecs/modules \
+	-DBIN_INSTALL_DIR=%{_bindir} \
+	-DKCFG_INSTALL_DIR=%{_datadir}/config.kcfg \
+	-DPLUGIN_INSTALL_DIR=%{qt5dir}/plugins \
+	-DQT_PLUGIN_INSTALL_DIR=%{qt5dir}/plugins \
+	-DQML_INSTALL_DIR=%{qt5dir}/qml \
+	-DIMPORTS_INSTALL_DIR=%{qt5dirs}/imports \
+	-DSYSCONF_INSTALL_DIR=%{_sysconfdir} \
+	-DLIBEXEC_INSTALL_DIR=%{_libexecdir} \
+	-DKF5_LIBEXEC_INSTALL_DIR=%{_libexecdir} \
+	-DKF5_INCLUDE_INSTALL_DIR=%{_includedir} \
+	-DECM_MKSPECS_INSTALL_DIR=%{qt5dir}/mkspecs/modules \
 	../
 %{__make}
 
@@ -81,4 +93,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/KF5/kdbusaddons_version.h
 %attr(755,root,root) %{_libdir}/libKF5DBusAddons.so
 %{_libdir}/cmake/KF5DBusAddons
-%{_libdir}/qt5/mkspecs/modules/qt_KDBusAddons.pri
+%{qt5dir}/mkspecs/modules/qt_KDBusAddons.pri
