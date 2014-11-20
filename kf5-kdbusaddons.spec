@@ -1,29 +1,32 @@
 # TODO:
-# - proper place for *.pri,
-# - set ECM_MKSPECS_INSTALL_DIR in kde5-extra-cmake-modules
 # - runtime Requires if any
 # - dir /usr/include/KF5 not packaged
-%define         _state          stable
+
+%bcond_without	tests
+
+%define		_state		stable
 %define		orgname		kdbusaddons
+%define		kdeframever	5.4
+%define		qt_ver		5.3.2
 
 Summary:	Convenience classes for DBus
 Name:		kf5-%{orgname}
-Version:	5.0.0
-Release:	0.1
+Version:	5.4.0
+Release:	1
 License:	LGPL v2.1+
 Group:		X11/Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/frameworks/%{version}/%{orgname}-%{version}.tar.xz
-# Source0-md5:	da8585a074b204ab2bcd3e7bc8f4ddef
+Source0:	http://download.kde.org/%{_state}/frameworks/%{kdeframever}/%{orgname}-%{version}.tar.xz
+# Source0-md5:	33f64aeabee19b22a3d8cc3411342eca
 URL:		http://www.kde.org/
-BuildRequires:	Qt5Core-devel >= 5.2.0
-BuildRequires:	Qt5DBus-devel >= 5.2.0
-BuildRequires:	Qt5Gui-devel >= 5.3.1
-BuildRequires:	Qt5Test-devel
-BuildRequires:	Qt5Widgets-devel >= 5.2.0
-BuildRequires:	Qt5X11Extras-devel >= 5.2.0
+BuildRequires:	Qt5Core-devel >= %{qt_ver}
+BuildRequires:	Qt5DBus-devel >= %{qt_ver}
+BuildRequires:	Qt5Gui-devel >= %{qt_ver}
+BuildRequires:	Qt5Test-devel >= %{qt_ver}
+BuildRequires:	Qt5Widgets-devel >= %{qt_ver}
+BuildRequires:	Qt5X11Extras-devel >= %{qt_ver}
 BuildRequires:	cmake >= 2.8.12
-BuildRequires:	kf5-extra-cmake-modules >= 1.0.0
-BuildRequires:	qt5-linguist
+BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
+BuildRequires:	qt5-linguist >= %{qt_ver}
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -54,19 +57,11 @@ Pliki nagłówkowe dla programistów używających %{orgname}.
 install -d build
 cd build
 %cmake \
-	-DBIN_INSTALL_DIR=%{_bindir} \
-	-DKCFG_INSTALL_DIR=%{_datadir}/config.kcfg \
-	-DPLUGIN_INSTALL_DIR=%{qt5dir}/plugins \
-	-DQT_PLUGIN_INSTALL_DIR=%{qt5dir}/plugins \
-	-DQML_INSTALL_DIR=%{qt5dir}/qml \
-	-DIMPORTS_INSTALL_DIR=%{qt5dirs}/imports \
-	-DSYSCONF_INSTALL_DIR=%{_sysconfdir} \
-	-DLIBEXEC_INSTALL_DIR=%{_libexecdir} \
-	-DKF5_LIBEXEC_INSTALL_DIR=%{_libexecdir} \
-	-DKF5_INCLUDE_INSTALL_DIR=%{_includedir} \
-	-DECM_MKSPECS_INSTALL_DIR=%{qt5dir}/mkspecs/modules \
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
 	../
 %{__make}
+
+%{?with_tests:%{__make} test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -87,7 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc MAINTAINER README.md
 %attr(755,root,root) %{_bindir}/kquitapp5
 %attr(755,root,root) %ghost %{_libdir}/libKF5DBusAddons.so.5
-%attr(755,root,root) %{_libdir}/libKF5DBusAddons.so.5.0.0
+%attr(755,root,root) %{_libdir}/libKF5DBusAddons.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
