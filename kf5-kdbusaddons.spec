@@ -6,17 +6,17 @@
 # - runtime Requires if any
 # - make test not hanging and switch it back on
 
-%define		kdeframever	5.79
+%define		kdeframever	5.80
 %define		qtver		5.9.0
 %define		kfname		kdbusaddons
 Summary:	Convenience classes for DBus
 Name:		kf5-%{kfname}
-Version:	5.79.0
+Version:	5.80.0
 Release:	1
 License:	LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	94f13ec26cc751662ed00a2184a3a3f7
+# Source0-md5:	e9918c7ab43ae5e3a815858b3ba904d2
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel >= %{qtver}
@@ -84,7 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc MAINTAINER README.md
 %attr(755,root,root) %{_bindir}/kquitapp5
 %attr(755,root,root) %{_libdir}/libKF5DBusAddons.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKF5DBusAddons.so.5
+%ghost %{_libdir}/libKF5DBusAddons.so.5
 %{_datadir}/qlogging-categories5/kdbusaddons.categories
 %{_datadir}/qlogging-categories5/kdbusaddons.renamecategories
 
@@ -92,6 +92,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/KF5/KDBusAddons
 %{_includedir}/KF5/kdbusaddons_version.h
-%attr(755,root,root) %{_libdir}/libKF5DBusAddons.so
+%{_libdir}/libKF5DBusAddons.so
 %{_libdir}/cmake/KF5DBusAddons
 %{qt5dir}/mkspecs/modules/qt_KDBusAddons.pri
