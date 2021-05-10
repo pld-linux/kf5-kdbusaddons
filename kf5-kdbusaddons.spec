@@ -6,17 +6,17 @@
 # - runtime Requires if any
 # - make test not hanging and switch it back on
 
-%define		kdeframever	5.81
+%define		kdeframever	5.82
 %define		qtver		5.14.0
 %define		kfname		kdbusaddons
 Summary:	Convenience classes for DBus
 Name:		kf5-%{kfname}
-Version:	5.81.0
+Version:	5.82.0
 Release:	1
 License:	LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	009f5b88d6300568d7268464f5930619
+# Source0-md5:	0ee66f96d95f41694f2efbd1de0b530b
 URL:		http://www.kde.org/
 BuildRequires:	Qt5DBus-devel >= %{qtver}
 %{?with_tests:BuildRequires:	Qt5Test-devel >= %{qtver}}
