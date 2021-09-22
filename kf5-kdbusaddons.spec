@@ -7,7 +7,7 @@
 # - make test not hanging and switch it back on
 
 %define		kdeframever	5.86
-%define		qtver		5.14.0
+%define		qtver		5.15.2
 %define		kfname		kdbusaddons
 Summary:	Convenience classes for DBus
 Name:		kf5-%{kfname}
@@ -21,7 +21,7 @@ URL:		http://www.kde.org/
 BuildRequires:	Qt5DBus-devel >= %{qtver}
 %{?with_tests:BuildRequires:	Qt5Test-devel >= %{qtver}}
 BuildRequires:	Qt5X11Extras-devel >= %{qtver}
-BuildRequires:	cmake >= 3.5
+BuildRequires:	cmake >= 3.16
 BuildRequires:	kf5-extra-cmake-modules >= %{version}
 BuildRequires:	ninja
 BuildRequires:	qt5-linguist >= %{qtver}
@@ -45,7 +45,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe dla programistów używających %{kfname}
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	Qt5DBus-devel >= %{qtver}
-Requires:	cmake >= 3.5
+Requires:	cmake >= 3.16
 
 %description devel
 Header files for %{kfname} development.
