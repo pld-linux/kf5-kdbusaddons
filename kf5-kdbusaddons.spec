@@ -6,17 +6,17 @@
 # - runtime Requires if any
 # - make test not hanging and switch it back on
 
-%define		kdeframever	5.108
+%define		kdeframever	5.109
 %define		qtver		5.15.2
 %define		kfname		kdbusaddons
 Summary:	Convenience classes for DBus
 Name:		kf5-%{kfname}
-Version:	5.108.0
+Version:	5.109.0
 Release:	1
 License:	LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	4751e126e0668e8907a05762e4fbafd0
+# Source0-md5:	5b00c0b729b5c11d2a5733ea7db5674f
 URL:		http://www.kde.org/
 BuildRequires:	Qt5DBus-devel >= %{qtver}
 %{?with_tests:BuildRequires:	Qt5Test-devel >= %{qtver}}
@@ -57,15 +57,14 @@ Pliki nagłówkowe dla programistów używających %{kfname}.
 %setup -q -n %{kfname}-%{version}
 
 %build
-install -d build
-cd build
-%cmake -G Ninja \
+%cmake -B build \
+	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	../
-%ninja_build
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 
-%{?with_tests:%ninja_build test}
+%ninja_build -C build
+
+%{?with_tests:%ninja_build -C build test}
 
 
 %install
